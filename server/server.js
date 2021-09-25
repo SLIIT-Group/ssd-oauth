@@ -4,6 +4,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 const passportSetup = require("./config/passport-setup");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
 
 const app = express();
 
@@ -14,6 +16,14 @@ connectDB();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  cookieSession({
+    maxAge: 1 * 60 * 60 * 1000,
+    keys: [process.env.cookieKey],
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
