@@ -6,7 +6,7 @@ router.get("/login", (req, res) => {
 });
 
 //auth logout
-router.get("/logout", (res, req) => {
+router.get("/logout", (req, res) => {
   //Handle with passport
   res.send("Logging out");
 });
