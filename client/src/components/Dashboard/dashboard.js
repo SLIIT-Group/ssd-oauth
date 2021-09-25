@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import swal from 'sweetalert';
 import _ from 'lodash';
 import addFile from "../AddFiles/addFile";
 
@@ -19,30 +21,78 @@ class Dashboard extends Component {
     }
 
     submitUpload = () => {
-        this.props.upload(
-            this.state.fileName,
-            this.state.fileSize,
-            this.state.fileType,
-            this.props.auth.driveID /*---------------------*/
-        );
+        const userData = {
+            id: "11",
+            driveID: "111"
+        }
+
+        axios.post(`http://localhost:5000/googleDrive/fileUpload`, userData)
+            .then((data) => {
+                if (data.data.success) {
+                    swal("Good job!", "File uploaded", "success");
+                }
+            })
+            .catch((err) => {
+                swal("Unsuccessful", "File uploading failed", "error");
+            });
+
     }
 
     handleClick = (event, data) => {
-        this.props.download(data.id, this.props.auth.driveID); /**/
         const userData = {
-            "id": "11",
-            "driveID": "111"   /*---------------------*/
+            id: "11",
+            driveID: "111"
         }
 
-        fetch(`http://localhost:5000/api/download`, {
-            method: "POST",
-            body:userData,
-        })
-            .then((response) => response.json())
-            .then(({ pager, pageOfItems }) => {
-                this.setState({ pager, pageOfItems });
-            });   /*---------------------*/
+        axios.post(`http://localhost:5000/googleDrive/download/${userData.id}`, userData)
+            .then((data) => {
+                if (data.data.success) {
+                    swal("Good job!", "File downloaded", "success");
+                }
+            })
+            .catch((err) => {
+                swal("Unsuccessful", "File downloading failed", "error");
+            });
+
     }
+
+    loadFiles = () => {
+        const userData = {
+            id: "11",
+            driveID: "111"
+        }
+
+        axios.post(`http://localhost:5000/googleDrive/readDrive`, userData)
+            .then((data) => {
+                if (data.data.success) {
+                    swal("Good job!", "File uploaded", "success");
+                }
+            })
+            .catch((err) => {
+                swal("Unsuccessful", "Files not loaded", "error");
+            });
+
+    }
+
+    handleDelete = (event, data) => {
+        const userData = {
+            id: "11",
+            driveID: "111"
+        }
+
+        axios.post(`http://localhost:5000/googleDrive/deleteFile/${userData.id}`, userData)
+            .then((data) => {
+                if (data.data.success) {
+                    swal("Good job!", "File deleted", "success");
+                }
+            })
+            .catch((err) => {
+                swal("Unsuccessful", "File not deleted", "error");
+            });
+
+    }
+
+
     renderFolders() {
         return _.map(this.props.data, data => {
             if(data.mimeType === "application/vnd.google-apps.folder"){
