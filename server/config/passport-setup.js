@@ -1,6 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20");
 const User = require("../models/user-model");
+const credentials = require("../credentials.json");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -17,8 +18,8 @@ passport.use(
     {
       //options for google strategy
       callbackURL: "/auth/google/redirect",
-      clientID: process.env.clientID,
-      clientSecret: process.env.clientSecret,
+      clientID: credentials.web.client_id,
+      clientSecret: credentials.web.client_secret,
     },
     //passport callback function
     (accessToken, refreshToken, profile, done) => {
