@@ -1,14 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 const passportSetup = require("./config/passport-setup");
 
-connectDB();
-
 const app = express();
 
+//Connect to MongoDB
+connectDB();
+
+//Middleware
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
