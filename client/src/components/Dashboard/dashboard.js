@@ -21,12 +21,12 @@ class Dashboard extends Component {
     }
 
     submitUpload = () => {
-        const userData = {
-            id: "11",
-            driveID: "111"
+        const body = {
+            file: "11",
+            token: "111"
         }
 
-        axios.post(`http://localhost:5000/googleDrive/fileUpload`, userData)
+        axios.post(`http://localhost:5000/googleDrive/fileUpload`, body)
             .then((data) => {
                 if (data.data.success) {
                     swal("Good job!", "File uploaded", "success");
@@ -39,12 +39,12 @@ class Dashboard extends Component {
     }
 
     handleClick = (event, data) => {
-        const userData = {
+        const body = {
             id: "11",
             driveID: "111"
         }
 
-        axios.post(`http://localhost:5000/googleDrive/download/${userData.id}`, userData)
+        axios.post(`http://localhost:5000/googleDrive/download/${body.id}`, body)
             .then((data) => {
                 if (data.data.success) {
                     swal("Good job!", "File downloaded", "success");
@@ -57,12 +57,11 @@ class Dashboard extends Component {
     }
 
     loadFiles = () => {
-        const userData = {
-            id: "11",
-            driveID: "111"
+        const body = {
+            token: "111"
         }
 
-        axios.post(`http://localhost:5000/googleDrive/readDrive`, userData)
+        axios.post(`http://localhost:5000/googleDrive/readDrive`, body)
             .then((data) => {
                 if (data.data.success) {
                     swal("Good job!", "File uploaded", "success");
@@ -75,12 +74,11 @@ class Dashboard extends Component {
     }
 
     handleDelete = (event, data) => {
-        const userData = {
-            id: "11",
-            driveID: "111"
+        const body = {
+            token: "111"
         }
 
-        axios.post(`http://localhost:5000/googleDrive/deleteFile/${userData.id}`, userData)
+        axios.post(`http://localhost:5000/googleDrive/deleteFile/${body.id}`,body)
             .then((data) => {
                 if (data.data.success) {
                     swal("Good job!", "File deleted", "success");
