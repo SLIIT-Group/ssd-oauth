@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const morgan = require("morgan");
 const connectDB = require("./config/db");
+const passportSetup = require("./config/passport-setup");
 
 connectDB();
 
