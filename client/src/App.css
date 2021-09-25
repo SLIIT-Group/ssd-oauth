@@ -1,0 +1,14 @@
+.ssd-navbar {
+    width: auto;
+}
+
+.ssd-main-class {
+    position: relative;
+}
+
+.ssd-footer-class {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: -webkit-fill-available;
+}
