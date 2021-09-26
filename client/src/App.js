@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import "./App.css";
@@ -8,26 +8,14 @@ import Login from "./components/Login/login";
 import AddFiles from "./components/AddFiles/addFile"
 import ViewFiles from "./components/ViewFiles/viewFiles"
 import Gallery from "./components/Gallery/gallery"
+import Navbar from "./components/Navbar/navbar";
+
 
 function App() {
   return (
       <Router>
           <div className="ssd-main-class">
-          {/*<div className="container">*/}
-              <nav className="navbar navbar-expand-lg navbar-dark bg-dark ssd-navbar">
-                  <Link to={'/'} className="navbar-brand"> SSD Assignment</Link>
-                  <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                      <div style={{width:"350px", display:"inline-block"}} />
-                      <ul className="navbar-nav mr-auto">
-                          <li className="nav-item">
-                              <Link to={'/'} className="nav-link">Home</Link>
-                          </li>
-                          <li className="nav-item">
-                              <Link to={'/login'} className="nav-link">Login</Link>
-                          </li>
-                      </ul>
-                  </div>
-              </nav>
+              <Navbar/>
               <br/>
               <Switch>
                   <Route exact path = '/' component = {ButtonRow} />
