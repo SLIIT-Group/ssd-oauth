@@ -6,6 +6,11 @@
     align-items: flex-start;
 }
 
+.ssd-empty-space {
+    width: 350px;
+    display: inline-block;
+}
+
 .ssd-navbar-sub-header {
     text-align: right;
     display: inline-flex;

@@ -38,27 +38,28 @@ const Navbar = (props) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="ssd-navbar">
-          <Link to={"/"} className="navbar-brand ssd-navbar-header">
-            {" "}
-            SSD Assignment 2
-          </Link>
-          <ul className="navbar-nav mr-auto ssd-navbar-sub-header">
-            <li className="nav-item">
-              <Link to={"/"} className="nav-link">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/"} className="nav-link" onClick={logout}>
-                Logout
-              </Link>
-            </li>
-          </ul>
+        <Link to={"/"} className="navbar-brand ssd-navbar-header">
+          {" "}
+          SSD Assignment 2
+        </Link>
+        <div className="ssd-empty-space"/>
+        <ul className="navbar-nav mr-auto ssd-navbar-sub-header">
+          <li className="nav-item">
+            <Link to={"/"} className="nav-link">
+              Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/login"} className="nav-link">
+              Login
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/"} className="nav-link" onClick={logout}>
+              Logout
+            </Link>
+          </li>
+        </ul>
       </div>
     </nav>
   );
