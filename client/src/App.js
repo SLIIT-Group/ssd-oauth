@@ -31,8 +31,8 @@ function App() {
               <br/>
               <Switch>
                   <Route exact path = '/' component = {ButtonRow} />
-                  <Route exact path = '/Login' component = {Login} />
                   <Route exact path = '/add' component={AddFiles} />
+                  <Route exact path = '/login' component = {Login} />
                   <Route exact path = '/view' component={ViewFiles} />
                   <Route exact path = '/dashboard' component={Dashboard} />
               </Switch>

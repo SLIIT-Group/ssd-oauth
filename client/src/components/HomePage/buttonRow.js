@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 
@@ -94,8 +94,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function ButtonRow() {
+
+
+function ButtonRow(props) {
     const classes = useStyles();
+
+    useEffect( () => {
+
+        const url = new URL(window.location.href);
+        const code = url.searchParams.get('code');
+        console.log(code);
+    },[])
 
     return(
         <div>
