@@ -3,7 +3,7 @@ import axios from "axios";
 import swal from "sweetalert";
 
 
-const Dashboard = () =>  {
+const Gallery = () =>  {
 
     const [token, setToken] = useState(null);
 
@@ -102,10 +102,10 @@ const Dashboard = () =>  {
     }, [])
 
     return(
-        <div>
+        <div className="container">
             <h1>Dashboard</h1>
         </div>
     );
 }
 
-export default Dashboard;
+export default Gallery;

@@ -7,7 +7,7 @@ import Footer from  "./components/Footer/footer";
 import Login from "./components/Login/login";
 import AddFiles from "./components/AddFiles/addFile"
 import ViewFiles from "./components/ViewFiles/viewFiles"
-import Dashboard from "./components/Dashboard/dashboard"
+import Gallery from "./components/Gallery/gallery"
 
 function App() {
   return (
@@ -31,10 +31,10 @@ function App() {
               <br/>
               <Switch>
                   <Route exact path = '/' component = {ButtonRow} />
-                  <Route exact path = '/add' component={AddFiles} />
+                  <Route exact path = '/upload' component={AddFiles} />
                   <Route exact path = '/login' component = {Login} />
                   <Route exact path = '/view' component={ViewFiles} />
-                  <Route exact path = '/dashboard' component={Dashboard} />
+                  <Route exact path = '/gallery' component={Gallery} />
               </Switch>
               <div className="ssd-footer-class">
                   <Footer></Footer>

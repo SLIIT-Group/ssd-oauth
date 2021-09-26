@@ -1,24 +1,23 @@
 import React, {useEffect} from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import axios from "axios";
-import swal from "sweetalert";
+
 
 const images = [
     {
         url: '/images/homepage/event.jpg',
-        title: 'Add Files',
+        title: 'Upload',
         width: '50%',
         navigate: '/add'
     },
     {
         url: '/images/homepage/ev.jpg',
-        title: 'View Files',
+        title: 'Gallery',
         width: '50%',
-        navigate: '/view'
+        navigate: '/gallery'
     }
 ];
 
