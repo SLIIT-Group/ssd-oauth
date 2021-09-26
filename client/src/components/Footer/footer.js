@@ -3,7 +3,7 @@ import "./footer.css";
 
 function footer() {
   return (
-    <div align="center" className="ssd-footer-class">
+    <div align="center">
       <div className="footer-style">
         <footer id="footer" className="section">
           <div className="container">
