@@ -1,13 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import axios from "axios";
 import swal from "sweetalert";
 
 
 
 const Login = () =>  {
-
-
-    const [url, setUrl] = useState("");
 
     useEffect(() => {
 

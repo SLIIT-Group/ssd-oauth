@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
 const images = [
     {
@@ -100,10 +102,29 @@ function ButtonRow(props) {
     const classes = useStyles();
 
     useEffect( () => {
-
         const url = new URL(window.location.href);
         const code = url.searchParams.get('code');
         console.log(code);
+
+        const body = {
+            code: code
+        }
+
+        axios.post(`http://localhost:5000/googleDrive/getToken`, body)
+            .then((data) => {
+                if (data) {
+                    console.log(data.data);
+                    localStorage.setItem('access_token', data.data.access_token);
+                    localStorage.setItem('scope', data.data.scope);
+                    localStorage.setItem('token_type', data.data.token_type);
+                    localStorage.setItem('expiry_date', data.data.expiry_date);
+                    localStorage.setItem('id_token', data.data.id_token);
+                }
+            })
+            .catch((err) => {
+                /*error*/
+            });
+
     },[])
 
     return(
