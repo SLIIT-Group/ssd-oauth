@@ -25,6 +25,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
@@ -33,7 +34,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/", require("./routes/routes"));
 app.use("/auth", require("./routes/auth-routes"));
 app.use("/profile", require("./routes/profile-routes"));
-app.use("/googledrive", require("./routes/google-drive-api"));
+app.use("/googleDrive", require("./routes/google-drive-api"));
 
 const PORT = process.env.PORT || 5000;
 
