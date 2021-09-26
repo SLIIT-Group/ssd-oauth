@@ -3,7 +3,7 @@ import axios from "axios";
 import swal from "sweetalert";
 
 
-const Gallery = () =>  {
+const Upload = () =>  {
 
     const [token, setToken] = useState(null);
 
@@ -105,10 +105,8 @@ const Gallery = () =>  {
         <div className="container">
             <br/>
             <h2>Gallery</h2>
-
-
         </div>
     );
 }
 
-export default Gallery;
+export default Upload;

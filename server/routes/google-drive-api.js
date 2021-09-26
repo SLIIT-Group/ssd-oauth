@@ -50,29 +50,44 @@ router.post("/getUserInfo", (req, res) => {
   });
 });
 
-router.post("/readDrive", (req, res) => {
+router.post("/readDrive", async (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
   const drive = google.drive({ version: "v3", auth: oAuth2Client });
-  drive.files.list(
+  await drive.files.list(
     {
-      pageSize: 10,
+      pageSize: 100,
     },
     (err, response) => {
       if (err) {
         console.log("The API returned an error: " + err);
         return res.status(400).send(err);
       }
+
       const files = response.data.files;
+      const arr = [];
       if (files.length) {
-        console.log("Files:");
-        files.map((file) => {
+        files.map(async (file) => {
           console.log(`${file.name} (${file.id})`);
+          const result = await drive.files.get({
+            fileId: file.id,
+            fields: "webViewLink, webContentLink",
+          });
+          console.log(result.data);
+          arr.push({
+            id : file.id,
+            webViewLink : result.data.webViewLink,
+            webContentLink : result.data.webContentLink,
+          })
+
+          if (arr.length === files.length){
+            res.send(arr);
+          }
+
         });
       } else {
         console.log("No files found.");
       }
-      res.send(files);
     }
   );
 });

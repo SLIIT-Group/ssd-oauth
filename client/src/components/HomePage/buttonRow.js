@@ -9,9 +9,9 @@ import axios from "axios";
 const images = [
     {
         url: '/images/homepage/event.jpg',
-        title: 'Upload',
+        title: 'Upload Images',
         width: '50%',
-        navigate: '/add'
+        navigate: '/upload'
     },
     {
         url: '/images/homepage/ev.jpg',
@@ -99,29 +99,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ButtonRow(props) {
     const classes = useStyles();
-
-    useEffect( () => {
-        const url = new URL(window.location.href);
-        const code = url.searchParams.get('code');
-        const body = {
-            code: code
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/getToken`, body)
-            .then((data) => {
-                if (data) {
-                    localStorage.setItem('access_token', data.data.access_token);
-                    localStorage.setItem('scope', data.data.scope);
-                    localStorage.setItem('token_type', data.data.token_type);
-                    localStorage.setItem('expiry_date', data.data.expiry_date);
-                    localStorage.setItem('id_token', data.data.id_token);
-                }
-            })
-            .catch((err) => {
-                /*error*/
-            });
-
-    },[])
 
     return(
         <div>
