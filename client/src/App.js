@@ -14,7 +14,6 @@ function App() {
     <Router>
       <div className="ssd-main-class">
         <Navbar />
-        <br />
         <Switch>
           <Route exact path="/" component={ButtonRow} />
           <Route exact path="/upload" component={Upload} />
