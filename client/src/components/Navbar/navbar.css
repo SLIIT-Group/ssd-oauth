@@ -1,0 +1,12 @@
+.ssd-navbar {
+    margin: 0 auto;
+}
+
+.ssd-navbar-header {
+    align-items: flex-start;
+}
+
+.ssd-navbar-sub-header {
+    text-align: right;
+    display: inline-flex;
+}
