@@ -21,9 +21,9 @@ function App() {
                   <Route exact path = '/login' component = {Login} />
                   <Route exact path = '/gallery' component={Gallery} />
               </Switch>
-              <div className="ssd-footer-class">
+
                   <Footer></Footer>
-              </div>
+
           {/*</div>*/}
           </div>
       </Router>

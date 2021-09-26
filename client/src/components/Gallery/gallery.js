@@ -6,6 +6,7 @@ import swal from "sweetalert";
 const Gallery = () =>  {
 
     const [token, setToken] = useState(null);
+    const [files, setFiles] = useState(null);
 
     const handleUpload = event => {
         const file = event.target.files[0];
@@ -62,6 +63,7 @@ const Gallery = () =>  {
             .then((data) => {
                 if (data) {
                     console.log(data);
+                    setFiles(data.data);
                 }
             })
             .catch((err) => {
@@ -104,7 +106,50 @@ const Gallery = () =>  {
     return(
         <div className="container">
             <br/>
-            <h2>Gallery</h2>
+            {files && <>
+
+                <h2>Gallery</h2>
+                {files.map((item) => (
+                    <div key={item.id}>
+                        <div className="container rounded-0 border border-warning p-0">
+                            <div className="container p-0">
+                                <div className="row col-md-12 p-0 m-0">
+                                    <div className="col-md-8">
+                                        <img
+                                            className="py-2"
+                                            alt="packageImg"
+                                            height="100%"
+                                            width="100%"
+                                            src={""}
+                                        />
+                                        {console.log(item.webViewLink)}
+                                        <br />
+                                    </div>
+                                    <div className="col-md-4">
+                                        {/*<h4 className="font-weight-bold text-left mt-4 text-dark">
+                                            {item.title}
+                                        </h4>
+                                        <h6 className="font-weight-bold text-left text-dark">
+                                            {item.size} {item.sizeType}
+                                        </h6>
+                                        <h6 className="font-weight-bold text-left text-secondary">
+                                            {item.region}, {item.propertyType}
+                                        </h6>
+                                        <h5 className="font-weight-bold text-left text-info">
+                                            Rs {item.price}.00
+                                        </h5>*/}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                ))}
+
+            </>
+            }
 
 
         </div>

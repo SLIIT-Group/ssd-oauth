@@ -51,6 +51,7 @@ router.post("/getUserInfo", (req, res) => {
 });
 
 router.post("/readDrive", async (req, res) => {
+  try {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
   const drive = google.drive({ version: "v3", auth: oAuth2Client });
@@ -69,11 +70,21 @@ router.post("/readDrive", async (req, res) => {
       if (files.length) {
         files.map(async (file) => {
           console.log(`${file.name} (${file.id})`);
+
+          await drive.permissions.create({
+            fileId: file.id,
+            requestBody: {
+              role: "reader",
+              type: "anyone",
+            },
+          });
+
           const result = await drive.files.get({
             fileId: file.id,
             fields: "webViewLink, webContentLink",
           });
           console.log(result.data);
+
           arr.push({
             id : file.id,
             webViewLink : result.data.webViewLink,
@@ -87,9 +98,13 @@ router.post("/readDrive", async (req, res) => {
         });
       } else {
         console.log("No files found.");
+        console.log("No files found.");
       }
     }
   );
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 router.post("/fileUpload", (req, res) => {
