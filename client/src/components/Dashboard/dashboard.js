@@ -15,7 +15,7 @@ const Dashboard = () =>  {
     const submitUpload = () => {
         const body = {
             file: "11",
-            token: localStorage.getItem('token')
+            token: token
         }
 
         axios.post(`http://localhost:5000/googleDrive/fileUpload`, body)
@@ -72,7 +72,7 @@ const Dashboard = () =>  {
 
     const handleDelete = (event, data) => {
         const body = {
-            token: localStorage.getItem('token')
+            token: token
         }
 
         axios.post(`http://localhost:5000/googleDrive/deleteFile/${body.id}`,body)
@@ -99,7 +99,7 @@ const Dashboard = () =>  {
         }
         setToken(token);
         loadFiles(token);
-    })
+    }, [])
 
     return(
         <div>

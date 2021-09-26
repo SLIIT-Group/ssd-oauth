@@ -12,11 +12,10 @@ const Login = () =>  {
             .then((data) => {
                 if (data) {
                     load(data.data);
-                    swal("Good job!", "File deleted", "success");
                 }
             })
             .catch((err) => {
-                swal("Unsuccessful", "File not deleted", "error");
+                swal("Unsuccessful", "Google authentication failed", "error");
             })
     }, []);
 

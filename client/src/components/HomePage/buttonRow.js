@@ -104,8 +104,6 @@ function ButtonRow(props) {
     useEffect( () => {
         const url = new URL(window.location.href);
         const code = url.searchParams.get('code');
-        console.log(code);
-
         const body = {
             code: code
         }
@@ -113,7 +111,6 @@ function ButtonRow(props) {
         axios.post(`http://localhost:5000/googleDrive/getToken`, body)
             .then((data) => {
                 if (data) {
-                    console.log(data.data);
                     localStorage.setItem('access_token', data.data.access_token);
                     localStorage.setItem('scope', data.data.scope);
                     localStorage.setItem('token_type', data.data.token_type);
