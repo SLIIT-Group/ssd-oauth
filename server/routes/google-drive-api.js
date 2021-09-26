@@ -11,7 +11,7 @@ const redirect_uris = credentials.web.redirect_uris;
 const oAuth2Client = new google.auth.OAuth2(
   client_id,
   client_secret,
-  redirect_uris[0]
+  redirect_uris[2]
 );
 
 const SCOPE = [
@@ -142,6 +142,30 @@ router.post("/download/:id", (req, res) => {
         .pipe(res);
     }
   );
+});
+
+router.post("/getUrl/:id", async (req, res) => {
+  try {
+    if (req.body.token == null) return res.status(400).send("Token not found");
+    oAuth2Client.setCredentials(req.body.token);
+    const fileId = req.params.id;
+    const drive = google.drive({ version: "v3", auth: oAuth2Client });
+    await drive.permissions.create({
+      fileId: fileId,
+      requestBody: {
+        role: "reader",
+        type: "anyone",
+      },
+    });
+    const result = await drive.files.get({
+      fileId: fileId,
+      fields: "webViewLink, webContentLink",
+    });
+    console.log(result.data);
+    res.send(result.data);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 module.exports = router;
