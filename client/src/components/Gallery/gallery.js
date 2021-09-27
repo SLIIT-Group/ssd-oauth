@@ -72,6 +72,7 @@ const Gallery = () =>  {
 
     }
 
+
     const handleDelete = (id) => {
         const body = {
             token: token
@@ -79,8 +80,10 @@ const Gallery = () =>  {
 
         axios.post(`http://localhost:5000/googleDrive/deleteFile/${id}`,body)
             .then((data) => {
-                if (data.data.success) {
+                if (data) {
                     swal("Successful", "File deleted", "success");
+                    console.log(data);
+                    loadFiles(token);
                 }
             })
             .catch((err) => {
@@ -115,25 +118,28 @@ const Gallery = () =>  {
                             <div className="container p-0">
                                 <div className="row col-md-12 p-0 m-0">
                                     <div className="col-md-4 justify-content-start text-left">
-                                        <h5 className="font-weight-bold text-left mt-4 text-dark">
-                                            Image Name :
-                                        </h5>
-                                        <h6 className="font-weight-bold text-left mt-0 text-dark">
-                                            {item.name}
-                                        </h6>
+                                        <img
+                                            className="py-2"
+                                            alt="packageImg"
+                                            height="100%"
+                                            width="100%"
+                                            src={item.webContentLink}
+                                        />
                                     </div>
-                                    <div className="col-md-4 justify-content-center text-center">
-                                        <button className="btn btn-success my-2">
-                                            <strong className="px-2">Preview</strong>
-                                        </button>
-                                        <br/>
-                                        <button className="btn btn-warning my-2">
+                                    <div className="col-md-3 justify-content-center text-center"/>
+
+                                    <div className="col-md-5 justify-content-end text-center">
+                                        <h6 className="font-weight-bold text-center text-secondary pt-3">
+                                            Image Name :
+                                        </h6>
+                                        <h5 className="font-weight-bold text-center text-dark">
+                                            {item.name}
+                                        </h5>
+                                        <button className="btn btn-primary mt-2  col-md-12">
                                             <strong>Download</strong>
                                         </button>
-                                    </div>
-                                    <div className="col-md-4 justify-content-end text-right">
-                                        <button className="btn btn-danger mt-4" onClick={() => handleDelete(item.id)}>
-                                            <strong lassName="px-5">Delete</strong>
+                                        <button className="btn btn-danger mt-1 col-md-12" onClick={() => handleDelete(item.id)}>
+                                            <strong lassName="px-5">Remove</strong>
                                         </button>
                                     </div>
 

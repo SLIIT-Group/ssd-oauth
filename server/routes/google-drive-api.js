@@ -15,7 +15,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 const SCOPE = [
-  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive",
 ];
 
 router.get("/getAuthURL", (req, res) => {
@@ -50,36 +50,35 @@ router.post("/getUserInfo", (req, res) => {
   });
 });
 
-
-router.post("/readDrive", (req, res) => {
-  if (req.body.token == null) return res.status(400).send("Token not found");
-  oAuth2Client.setCredentials(req.body.token);
-  const drive = google.drive({ version: "v3", auth: oAuth2Client });
-  drive.files.list(
-      {
-        pageSize: 10,
-      },
-      (err, response) => {
-        if (err) {
-          console.log("The API returned an error: " + err);
-          return res.status(400).send(err);
-        }
-        const files = response.data.files;
-        if (files.length) {
-          console.log("Files:");
-          files.map((file) => {
-            console.log(`${file.name} (${file.id})`);
-          });
-        } else {
-          console.log("No files found.");
-        }
-        res.send(files);
-      }
-  );
-});
-
-
 /*
+router.post("/readDrive", (req, res) => {
+    if (req.body.token == null) return res.status(400).send("Token not found");
+    oAuth2Client.setCredentials(req.body.token);
+    const drive = google.drive({ version: "v3", auth: oAuth2Client });
+    drive.files.list(
+        {
+            pageSize: 10,
+        },
+        (err, response) => {
+            if (err) {
+                console.log("The API returned an error: " + err);
+                return res.status(400).send(err);
+            }
+            const files = response.data.files;
+            if (files.length) {
+                console.log("Files:");
+                files.map((file) => {
+                    console.log(`${file.name} (${file.id})`);
+                });
+            } else {
+                console.log("No files found.");
+            }
+            res.send(files);
+        }
+    );
+});
+*/
+
 
 router.post("/readDrive", async (req, res) => {
   try {
@@ -103,7 +102,7 @@ router.post("/readDrive", async (req, res) => {
           console.log(`${file.name} (${file.id})`);
 
           await drive.permissions.create({
-            fileId: file.id,
+              fileId: file.id,
             requestBody: {
               role: "reader",
               type: "anyone",
@@ -117,6 +116,7 @@ router.post("/readDrive", async (req, res) => {
           console.log(result.data);
 
           arr.push({
+            name:file.name,
             id : file.id,
             webViewLink : result.data.webViewLink,
             webContentLink : result.data.webContentLink,
@@ -141,7 +141,7 @@ router.post("/readDrive", async (req, res) => {
 
 
 
-*/
+
 
 
 
@@ -200,7 +200,7 @@ router.post("/deleteFile/:id", (req, res) => {
   const drive = google.drive({ version: "v3", auth: oAuth2Client });
   var fileId = req.params.id;
   drive.files.delete({ fileId: fileId }).then((response) => {
-    res.send(response.data);
+    res.send(response);
   });
 });
 
