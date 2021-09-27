@@ -72,12 +72,12 @@ const Gallery = () =>  {
 
     }
 
-    const handleDelete = (event, data) => {
+    const handleDelete = (id) => {
         const body = {
             token: token
         }
 
-        axios.post(`http://localhost:5000/googleDrive/deleteFile/${body.id}`,body)
+        axios.post(`http://localhost:5000/googleDrive/deleteFile/${id}`,body)
             .then((data) => {
                 if (data.data.success) {
                     swal("Successful", "File deleted", "success");
@@ -114,31 +114,27 @@ const Gallery = () =>  {
                         <div className="container rounded-0 border border-warning p-0">
                             <div className="container p-0">
                                 <div className="row col-md-12 p-0 m-0">
-                                    <div className="col-md-8">
-                                        <img
-                                            className="py-2"
-                                            alt="packageImg"
-                                            height="100%"
-                                            width="100%"
-                                            src={""}
-                                        />
-                                        {console.log(item.webViewLink)}
-                                        <br />
+                                    <div className="col-md-4 justify-content-start text-left">
+                                        <h5 className="font-weight-bold text-left mt-4 text-dark">
+                                            Image Name :
+                                        </h5>
+                                        <h6 className="font-weight-bold text-left mt-0 text-dark">
+                                            {item.name}
+                                        </h6>
                                     </div>
-                                    <div className="col-md-4">
-                                        {/*<h4 className="font-weight-bold text-left mt-4 text-dark">
-                                            {item.title}
-                                        </h4>
-                                        <h6 className="font-weight-bold text-left text-dark">
-                                            {item.size} {item.sizeType}
-                                        </h6>
-                                        <h6 className="font-weight-bold text-left text-secondary">
-                                            {item.region}, {item.propertyType}
-                                        </h6>
-                                        <h5 className="font-weight-bold text-left text-info">
-                                            Rs {item.price}.00
-                                        </h5>*/}
-
+                                    <div className="col-md-4 justify-content-center text-center">
+                                        <button className="btn btn-success my-2">
+                                            <strong className="px-2">Preview</strong>
+                                        </button>
+                                        <br/>
+                                        <button className="btn btn-warning my-2">
+                                            <strong>Download</strong>
+                                        </button>
+                                    </div>
+                                    <div className="col-md-4 justify-content-end text-right">
+                                        <button className="btn btn-danger mt-4" onClick={() => handleDelete(item.id)}>
+                                            <strong lassName="px-5">Delete</strong>
+                                        </button>
                                     </div>
 
                                 </div>

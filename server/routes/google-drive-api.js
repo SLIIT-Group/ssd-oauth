@@ -15,7 +15,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 const SCOPE = [
-  "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive.file",
 ];
 
 router.get("/getAuthURL", (req, res) => {
@@ -49,6 +49,37 @@ router.post("/getUserInfo", (req, res) => {
     res.send(response.data);
   });
 });
+
+
+router.post("/readDrive", (req, res) => {
+  if (req.body.token == null) return res.status(400).send("Token not found");
+  oAuth2Client.setCredentials(req.body.token);
+  const drive = google.drive({ version: "v3", auth: oAuth2Client });
+  drive.files.list(
+      {
+        pageSize: 10,
+      },
+      (err, response) => {
+        if (err) {
+          console.log("The API returned an error: " + err);
+          return res.status(400).send(err);
+        }
+        const files = response.data.files;
+        if (files.length) {
+          console.log("Files:");
+          files.map((file) => {
+            console.log(`${file.name} (${file.id})`);
+          });
+        } else {
+          console.log("No files found.");
+        }
+        res.send(files);
+      }
+  );
+});
+
+
+/*
 
 router.post("/readDrive", async (req, res) => {
   try {
@@ -106,6 +137,26 @@ router.post("/readDrive", async (req, res) => {
     console.log(error.message);
   }
 });
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post("/fileUpload", (req, res) => {
   var form = new formidable.IncomingForm();
