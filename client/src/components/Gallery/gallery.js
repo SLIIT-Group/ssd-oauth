@@ -8,48 +8,9 @@ const Gallery = () =>  {
     const [token, setToken] = useState(null);
     const [files, setFiles] = useState(null);
 
-    const handleUpload = event => {
-        const file = event.target.files[0];
 
-    }
-
-    const submitUpload = () => {
-        const body = {
-            file: "11",
-            token: token
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/fileUpload`, body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File uploaded", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File uploading failed", "error");
-            });
-
-    }
-
-
-
-
-    const handleClick = (event, data) => {
-        const body = {
-            id: "11",
-            driveID: "111"
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/download/${body.id}`, body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File downloaded", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File downloading failed", "error");
-            });
-
+    const handleDownload = (link) => {
+        window.open(link);
     }
 
 
@@ -135,7 +96,7 @@ const Gallery = () =>  {
                                         <h5 className="font-weight-bold text-center text-dark">
                                             {item.name}
                                         </h5>
-                                        <button className="btn btn-primary mt-2  col-md-12">
+                                        <button className="btn btn-primary mt-2  col-md-12" onClick={() => handleDownload(item.webContentLink)}>
                                             <strong>Download</strong>
                                         </button>
                                         <button className="btn btn-danger mt-1 col-md-12" onClick={() => handleDelete(item.id)}>
