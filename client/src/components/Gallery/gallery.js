@@ -8,48 +8,9 @@ const Gallery = () =>  {
     const [token, setToken] = useState(null);
     const [files, setFiles] = useState(null);
 
-    const handleUpload = event => {
-        const file = event.target.files[0];
 
-    }
-
-    const submitUpload = () => {
-        const body = {
-            file: "11",
-            token: token
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/fileUpload`, body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File uploaded", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File uploading failed", "error");
-            });
-
-    }
-
-
-
-
-    const handleClick = (event, data) => {
-        const body = {
-            id: "11",
-            driveID: "111"
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/download/${body.id}`, body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File downloaded", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File downloading failed", "error");
-            });
-
+    const handleDownload = (link) => {
+        window.open(link);
     }
 
 
@@ -72,15 +33,18 @@ const Gallery = () =>  {
 
     }
 
-    const handleDelete = (event, data) => {
+
+    const handleDelete = (id) => {
         const body = {
             token: token
         }
 
-        axios.post(`http://localhost:5000/googleDrive/deleteFile/${body.id}`,body)
+        axios.post(`http://localhost:5000/googleDrive/deleteFile/${id}`,body)
             .then((data) => {
-                if (data.data.success) {
+                if (data) {
                     swal("Successful", "File deleted", "success");
+                    console.log(data);
+                    loadFiles(token);
                 }
             })
             .catch((err) => {
@@ -114,31 +78,30 @@ const Gallery = () =>  {
                         <div className="container rounded-0 border border-warning p-0">
                             <div className="container p-0">
                                 <div className="row col-md-12 p-0 m-0">
-                                    <div className="col-md-8">
+                                    <div className="col-md-4 justify-content-start text-left">
                                         <img
                                             className="py-2"
                                             alt="packageImg"
                                             height="100%"
                                             width="100%"
-                                            src={""}
+                                            src={item.webContentLink}
                                         />
-                                        {console.log(item.webViewLink)}
-                                        <br />
                                     </div>
-                                    <div className="col-md-4">
-                                        {/*<h4 className="font-weight-bold text-left mt-4 text-dark">
-                                            {item.title}
-                                        </h4>
-                                        <h6 className="font-weight-bold text-left text-dark">
-                                            {item.size} {item.sizeType}
-                                        </h6>
-                                        <h6 className="font-weight-bold text-left text-secondary">
-                                            {item.region}, {item.propertyType}
-                                        </h6>
-                                        <h5 className="font-weight-bold text-left text-info">
-                                            Rs {item.price}.00
-                                        </h5>*/}
+                                    <div className="col-md-3 justify-content-center text-center"/>
 
+                                    <div className="col-md-5 justify-content-end text-center">
+                                        <h6 className="font-weight-bold text-center text-secondary pt-3">
+                                            Image Name :
+                                        </h6>
+                                        <h5 className="font-weight-bold text-center text-dark">
+                                            {item.name}
+                                        </h5>
+                                        <button className="btn btn-primary mt-2  col-md-12" onClick={() => handleDownload(item.webContentLink)}>
+                                            <strong>Download</strong>
+                                        </button>
+                                        <button className="btn btn-danger mt-1 col-md-12" onClick={() => handleDelete(item.id)}>
+                                            <strong lassName="px-5">Remove</strong>
+                                        </button>
                                     </div>
 
                                 </div>

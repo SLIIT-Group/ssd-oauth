@@ -15,10 +15,11 @@ function footer() {
                       <img src="./img/logo.png" alt="" />
                     </a>
                   </div>
-                  <p>
+                  <p className="mt-3">
                     This is a demonstration of how to improve web security with
                     OAuth
                   </p>
+                  <br/>
                   <ul className="footer-contact">
                     <li>
                       <i className="fa fa-map-marker"/> SLIIT, New Kandy
@@ -52,6 +53,7 @@ function footer() {
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.8243473074417!2d79.84925541437687!3d6.911595095005982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25942865f1bfb%3A0x141db277b60011d8!2sLiberty%20Plaza!5e0!3m2!1sen!2slk!4v1592066508414!5m2!1sen!2slk"
                     width="100%"
                     height="100%"
+                    className="mb-3"
                   />
                 </div>
               </div>

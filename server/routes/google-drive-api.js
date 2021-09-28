@@ -15,7 +15,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 const SCOPE = [
-  "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive",
 ];
 
 router.get("/getAuthURL", (req, res) => {
@@ -72,7 +72,7 @@ router.post("/readDrive", async (req, res) => {
           console.log(`${file.name} (${file.id})`);
 
           await drive.permissions.create({
-            fileId: file.id,
+              fileId: file.id,
             requestBody: {
               role: "reader",
               type: "anyone",
@@ -86,6 +86,7 @@ router.post("/readDrive", async (req, res) => {
           console.log(result.data);
 
           arr.push({
+            name:file.name,
             id : file.id,
             webViewLink : result.data.webViewLink,
             webContentLink : result.data.webContentLink,
@@ -108,6 +109,8 @@ router.post("/readDrive", async (req, res) => {
 });
 
 router.post("/fileUpload", (req, res) => {
+  console.log(req.body.file);
+  console.log(req.body.file.name);
   var form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     if (err) return res.status(400).send(err);
@@ -135,6 +138,7 @@ router.post("/fileUpload", (req, res) => {
         if (err) {
           console.error(err);
           res.status(400).send(err);
+          console.log(err);
         } else {
           res.send(file);
         }
@@ -149,7 +153,7 @@ router.post("/deleteFile/:id", (req, res) => {
   const drive = google.drive({ version: "v3", auth: oAuth2Client });
   var fileId = req.params.id;
   drive.files.delete({ fileId: fileId }).then((response) => {
-    res.send(response.data);
+    res.send(response);
   });
 });
 
