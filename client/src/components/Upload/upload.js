@@ -6,17 +6,22 @@ import swal from "sweetalert";
 const Upload = () =>  {
 
     const [token, setToken] = useState(null);
+    const [file, setFile] = useState(null);
 
     const handleUpload = event => {
-        const file = event.target.files[0];
-
+        console.log(event.target.files[0]);
+        setFile(event.target.files[0]);
     }
 
-    const submitUpload = () => {
+    const submitUpload = (e) => {
+        e.preventDefault();
+        console.log(file);
         const body = {
-            file: "11",
+            file: file,
             token: token
         }
+
+        console.log(body);
 
         axios.post(`http://localhost:5000/googleDrive/fileUpload`, body)
             .then((data) => {
@@ -30,64 +35,6 @@ const Upload = () =>  {
 
     }
 
-
-
-
-    const handleClick = (event, data) => {
-        const body = {
-            id: "11",
-            driveID: "111"
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/download/${body.id}`, body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File downloaded", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File downloading failed", "error");
-            });
-
-    }
-
-
-
-    const loadFiles = (token) => {
-        const body = {
-            token: token
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/readDrive`, body)
-            .then((data) => {
-                if (data) {
-                    console.log(data);
-                }
-            })
-            .catch((err) => {
-                swal("Please Login","", "error");
-            });
-
-    }
-
-    const handleDelete = (event, data) => {
-        const body = {
-            token: token
-        }
-
-        axios.post(`http://localhost:5000/googleDrive/deleteFile/${body.id}`,body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File deleted", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File not deleted", "error");
-            });
-
-    }
-
-
     useEffect(() => {
 
         const token = {
@@ -98,13 +45,25 @@ const Upload = () =>  {
             id_token : localStorage.getItem('id_token'),
         }
         setToken(token);
-        loadFiles(token);
     }, [])
 
     return(
-        <div className="container">
+        <div className="container border">
             <br/>
-            <h2>Gallery</h2>
+            <h2>Upload</h2>
+            <br/>
+            <form onSubmit={submitUpload}>
+                <div className="form-group">
+                    <label>Select Image</label>
+                    <input type="file" accept="image/*" onChange={handleUpload} className="form-control" />
+                    <br/>
+                    <div className="form-group col-12 px-0">
+                        <input type="submit" value="Upload" className= "btn btn-primary col-12"/>
+                    </div>
+                </div>
+
+
+            </form>
         </div>
     );
 }
