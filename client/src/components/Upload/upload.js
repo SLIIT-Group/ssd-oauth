@@ -6,32 +6,36 @@ import swal from "sweetalert";
 const Upload = () =>  {
 
     const [token, setToken] = useState(null);
-    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(null);
 
     const handleUpload = event => {
         console.log(event.target.files[0]);
-        setFile(event.target.files[0]);
+        setImage(event.target.files[0]);
+
     }
 
     const submitUpload = (e) => {
         e.preventDefault();
-        console.log(file);
-        const body = {
-            file: file,
-            token: token
-        }
+        let formData = new FormData();
+        formData.append('file', image, "blob");
+        formData.append('token', token, );
+        console.log(formData);
 
-        console.log(body);
+        setTimeout(function(){
+            axios.post(`http://localhost:5000/googleDrive/fileUpload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }})
+                .then((data) => {
+                    if (data.data.success) {
+                        swal("Successful", "File uploaded", "success");
+                    }
+                })
+                .catch((err) => {
+                    swal("Unsuccessful", "File uploading failed", "error");
+                });
 
-        axios.post(`http://localhost:5000/googleDrive/fileUpload`, body)
-            .then((data) => {
-                if (data.data.success) {
-                    swal("Successful", "File uploaded", "success");
-                }
-            })
-            .catch((err) => {
-                swal("Unsuccessful", "File uploading failed", "error");
-            });
+        }, 3000);
 
     }
 
