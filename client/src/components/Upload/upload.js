@@ -14,13 +14,13 @@ const Upload = () => {
   const submitUpload = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("file", image, "blob");
+    formData.append("file", image,  image.name);
     formData.append("token", JSON.stringify(token));
     for (let [name, value] of formData) {
       console.log(`FORM DATA ${name} = ${value}`);
     }
 
-    setTimeout(function () {
+
       axios
         .post(`http://localhost:5000/googleDrive/fileUpload`, formData, {
           headers: {
@@ -35,7 +35,7 @@ const Upload = () => {
         .catch((err) => {
           swal("Unsuccessful", "File uploading failed", "error");
         });
-    }, 3000);
+
   };
 
   useEffect(() => {
