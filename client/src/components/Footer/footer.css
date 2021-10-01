@@ -1,12 +1,12 @@
 .ssd-footer-class {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: -webkit-fill-available;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: -webkit-fill-available;
 }
 
 .footer-style {
-    width: 100%;
-    background-color: #282c34;
-    color: ivory;
+  width: 100%;
+  background-color: #282c34;
+  color: ivory;
 }
