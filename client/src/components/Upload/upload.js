@@ -28,7 +28,7 @@ const Upload = () => {
           },
         })
         .then((data) => {
-          if (data.data.success) {
+          if (data.data) {
             swal("Successful", "File uploaded", "success");
           }
         })
