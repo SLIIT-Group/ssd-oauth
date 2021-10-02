@@ -2,7 +2,7 @@
 
 ## SSD Assignment 2 - Team Nexus
 
-> Team members
+## Team members
 Weerakeshara T.N.N.D. - IT18111552
 Wijesinghe B.T.C. - IT18070668
 Rathnapala D.G.H. - IT18098556
