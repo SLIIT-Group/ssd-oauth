@@ -64,8 +64,6 @@ router.post("/readDrive", async (req, res) => {
         const arr = [];
         if (files.length) {
           files.map(async (file) => {
-            console.log(`${file.name} (${file.id})`);
-
             await drive.permissions.create({
               fileId: file.id,
               requestBody: {
@@ -73,20 +71,16 @@ router.post("/readDrive", async (req, res) => {
                 type: "anyone",
               },
             });
-
             const result = await drive.files.get({
               fileId: file.id,
               fields: "webViewLink, webContentLink",
             });
-            console.log(result.data);
-
             arr.push({
               name: file.name,
               id: file.id,
               webViewLink: result.data.webViewLink,
               webContentLink: result.data.webContentLink,
             });
-
             if (arr.length === files.length) {
               res.send(arr);
             }
