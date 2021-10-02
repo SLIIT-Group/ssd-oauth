@@ -17,8 +17,7 @@
     "formidable": "^1.2.2",
     "googleapis": "^39.2.0",
     "mongoose": "^6.0.6",
-    "morgan": "^1.10.0",
-    "passport-google-oauth20": "^2.0.0"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
