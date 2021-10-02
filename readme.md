@@ -1,6 +1,6 @@
-## Instructions to Deploy and Build application
+# Instructions to run the application
 
-# SSD Assignment
+## SSD Assignment 2 - Team Nexus
 
 > SSD Assignment
 
@@ -8,15 +8,16 @@ This app uses Node.js/Express/MongoDB with Google OAuth for authentication
 
 ## Usage
 
-Add mongoDB URI to the .env file
-
 ```
-# Install dependencies
+# Go inside 'server' folder and install dependencies
+# Then run the server
+cd server
 npm install
+npm start
 
-# Run in development
-npm run dev
-
-# Run in production
+# Go inside 'client' folder and install dependencies
+# Then run the client
+cd server
+npm install
 npm start
 ```
