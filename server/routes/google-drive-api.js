@@ -58,10 +58,8 @@ router.post("/readDrive", async (req, res) => {
       },
       (err, response) => {
         if (err) {
-          console.log("The API returned an error: " + err);
           return res.status(400).send(err);
         }
-
         const files = response.data.files;
         const arr = [];
         if (files.length) {
