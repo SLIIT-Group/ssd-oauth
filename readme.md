@@ -2,7 +2,7 @@
 
 ## SSD Assignment 2 - Team Nexus
 
-This app uses Node.js/Express/MongoDB with Google OAuth for authentication
+This app developed using React, Node.js, ExpressJS with Google OAuth for authentication
 
 ## Team members  
 Weerakeshara T.N.N.D. - IT18111552  
