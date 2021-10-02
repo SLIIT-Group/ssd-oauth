@@ -96,7 +96,6 @@ router.post("/readDrive", async (req, res) => {
 });
 
 router.post("/fileUpload", (req, res) => {
-  console.log(req);
   var form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     if (err) return res.status(400).send(err);
