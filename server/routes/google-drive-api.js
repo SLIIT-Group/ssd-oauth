@@ -41,7 +41,6 @@ router.post("/getUserInfo", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
   const oauth2 = google.oauth2({ version: "v2", auth: oAuth2Client });
-
   oauth2.userinfo.get((err, response) => {
     if (err) res.status(400).send(err);
     res.send(response.data);
