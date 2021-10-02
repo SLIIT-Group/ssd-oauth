@@ -44,7 +44,6 @@ router.post("/getUserInfo", (req, res) => {
 
   oauth2.userinfo.get((err, response) => {
     if (err) res.status(400).send(err);
-    console.log(response.data);
     res.send(response.data);
   });
 });
