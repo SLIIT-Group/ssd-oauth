@@ -131,59 +131,59 @@ router.post("/fileUpload", (req, res) => {
   });
 });
 
-router.post("/deleteFile/:id", (req, res) => {
-  if (req.body.token == null) return res.status(400).send("Token not found");
-  oAuth2Client.setCredentials(req.body.token);
-  const drive = google.drive({ version: "v3", auth: oAuth2Client });
-  var fileId = req.params.id;
-  drive.files.delete({ fileId: fileId }).then((response) => {
-    res.send(response);
-  });
-});
+// router.post("/deleteFile/:id", (req, res) => {
+//   if (req.body.token == null) return res.status(400).send("Token not found");
+//   oAuth2Client.setCredentials(req.body.token);
+//   const drive = google.drive({ version: "v3", auth: oAuth2Client });
+//   var fileId = req.params.id;
+//   drive.files.delete({ fileId: fileId }).then((response) => {
+//     res.send(response);
+//   });
+// });
 
-router.post("/download/:id", (req, res) => {
-  if (req.body.token == null) return res.status(400).send("Token not found");
-  oAuth2Client.setCredentials(req.body.token);
-  const drive = google.drive({ version: "v3", auth: oAuth2Client });
-  var fileId = req.params.id;
-  drive.files.get(
-    { fileId: fileId, alt: "media" },
-    { responseType: "stream" },
-    function (err, response) {
-      response.data
-        .on("end", () => {
-          console.log("Done");
-        })
-        .on("error", (err) => {
-          console.log("Error", err);
-        })
-        .pipe(res);
-    }
-  );
-});
+// router.post("/download/:id", (req, res) => {
+//   if (req.body.token == null) return res.status(400).send("Token not found");
+//   oAuth2Client.setCredentials(req.body.token);
+//   const drive = google.drive({ version: "v3", auth: oAuth2Client });
+//   var fileId = req.params.id;
+//   drive.files.get(
+//     { fileId: fileId, alt: "media" },
+//     { responseType: "stream" },
+//     function (err, response) {
+//       response.data
+//         .on("end", () => {
+//           console.log("Done");
+//         })
+//         .on("error", (err) => {
+//           console.log("Error", err);
+//         })
+//         .pipe(res);
+//     }
+//   );
+// });
 
-router.post("/getUrl/:id", async (req, res) => {
-  try {
-    if (req.body.token == null) return res.status(400).send("Token not found");
-    oAuth2Client.setCredentials(req.body.token);
-    const fileId = req.params.id;
-    const drive = google.drive({ version: "v3", auth: oAuth2Client });
-    await drive.permissions.create({
-      fileId: fileId,
-      requestBody: {
-        role: "reader",
-        type: "anyone",
-      },
-    });
-    const result = await drive.files.get({
-      fileId: fileId,
-      fields: "webViewLink, webContentLink",
-    });
-    console.log(result.data);
-    res.send(result.data);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+// router.post("/getUrl/:id", async (req, res) => {
+//   try {
+//     if (req.body.token == null) return res.status(400).send("Token not found");
+//     oAuth2Client.setCredentials(req.body.token);
+//     const fileId = req.params.id;
+//     const drive = google.drive({ version: "v3", auth: oAuth2Client });
+//     await drive.permissions.create({
+//       fileId: fileId,
+//       requestBody: {
+//         role: "reader",
+//         type: "anyone",
+//       },
+//     });
+//     const result = await drive.files.get({
+//       fileId: fileId,
+//       fields: "webViewLink, webContentLink",
+//     });
+//     console.log(result.data);
+//     res.send(result.data);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
 
 module.exports = router;
