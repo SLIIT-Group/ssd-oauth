@@ -8,6 +8,7 @@ const credentials = require("../credentials.json");
 const client_id = credentials.web.client_id;
 const client_secret = credentials.web.client_secret;
 const redirect_uris = credentials.web.redirect_uris;
+
 const oAuth2Client = new google.auth.OAuth2(
   client_id,
   client_secret,
@@ -23,7 +24,6 @@ router.get("/getAuthURL", (req, res) => {
     access_type: "offline",
     scope: SCOPE,
   });
-  console.log(authUrl);
   return res.send(authUrl);
 });
 
@@ -97,7 +97,6 @@ router.post("/readDrive", async (req, res) => {
             }
           });
         } else {
-          console.log("No files found.");
           console.log("No files found.");
         }
       }
