@@ -31,7 +31,6 @@ router.post("/getToken", (req, res) => {
   if (req.body.code == null) return res.status(400).send("Invalid Request");
   oAuth2Client.getToken(req.body.code, (err, token) => {
     if (err) {
-      console.error("Error retrieving access token", err);
       return res.status(400).send("Error retrieving access token");
     }
     res.send(token);
