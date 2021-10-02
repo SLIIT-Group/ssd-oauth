@@ -52,57 +52,56 @@ router.post("/getUserInfo", (req, res) => {
 
 router.post("/readDrive", async (req, res) => {
   try {
-  if (req.body.token == null) return res.status(400).send("Token not found");
-  oAuth2Client.setCredentials(req.body.token);
-  const drive = google.drive({ version: "v3", auth: oAuth2Client });
-  await drive.files.list(
-    {
-      pageSize: 100,
-    },
-    (err, response) => {
-      if (err) {
-        console.log("The API returned an error: " + err);
-        return res.status(400).send(err);
-      }
+    if (req.body.token == null) return res.status(400).send("Token not found");
+    oAuth2Client.setCredentials(req.body.token);
+    const drive = google.drive({ version: "v3", auth: oAuth2Client });
+    await drive.files.list(
+      {
+        pageSize: 100,
+      },
+      (err, response) => {
+        if (err) {
+          console.log("The API returned an error: " + err);
+          return res.status(400).send(err);
+        }
 
-      const files = response.data.files;
-      const arr = [];
-      if (files.length) {
-        files.map(async (file) => {
-          console.log(`${file.name} (${file.id})`);
+        const files = response.data.files;
+        const arr = [];
+        if (files.length) {
+          files.map(async (file) => {
+            console.log(`${file.name} (${file.id})`);
 
-          await drive.permissions.create({
+            await drive.permissions.create({
               fileId: file.id,
-            requestBody: {
-              role: "reader",
-              type: "anyone",
-            },
+              requestBody: {
+                role: "reader",
+                type: "anyone",
+              },
+            });
+
+            const result = await drive.files.get({
+              fileId: file.id,
+              fields: "webViewLink, webContentLink",
+            });
+            console.log(result.data);
+
+            arr.push({
+              name: file.name,
+              id: file.id,
+              webViewLink: result.data.webViewLink,
+              webContentLink: result.data.webContentLink,
+            });
+
+            if (arr.length === files.length) {
+              res.send(arr);
+            }
           });
-
-          const result = await drive.files.get({
-            fileId: file.id,
-            fields: "webViewLink, webContentLink",
-          });
-          console.log(result.data);
-
-          arr.push({
-            name:file.name,
-            id : file.id,
-            webViewLink : result.data.webViewLink,
-            webContentLink : result.data.webContentLink,
-          })
-
-          if (arr.length === files.length){
-            res.send(arr);
-          }
-
-        });
-      } else {
-        console.log("No files found.");
-        console.log("No files found.");
+        } else {
+          console.log("No files found.");
+          console.log("No files found.");
+        }
       }
-    }
-  );
+    );
   } catch (error) {
     console.log(error.message);
   }

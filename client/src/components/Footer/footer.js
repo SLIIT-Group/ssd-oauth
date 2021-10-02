@@ -19,17 +19,17 @@ function footer() {
                     This is a demonstration of how to improve web security with
                     OAuth
                   </p>
-                  <br/>
+                  <br />
                   <ul className="footer-contact">
                     <li>
-                      <i className="fa fa-map-marker"/> SLIIT, New Kandy
-                      Road, Malabe
+                      <i className="fa fa-map-marker" /> SLIIT, New Kandy Road,
+                      Malabe
                     </li>
                     <li>
-                      <i className="fa fa-phone"/> +94 76 7 611 379
+                      <i className="fa fa-phone" /> +94 76 7 611 379
                     </li>
                     <li>
-                      <i className="fa fa-envelope"/> sliitgroup19@gmail.com
+                      <i className="fa fa-envelope" /> sliitgroup19@gmail.com
                     </li>
                   </ul>
                 </div>

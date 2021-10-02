@@ -14,28 +14,26 @@ const Upload = () => {
   const submitUpload = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("file", image,  image.name);
+    formData.append("file", image, image.name);
     formData.append("token", JSON.stringify(token));
     for (let [name, value] of formData) {
       console.log(`FORM DATA ${name} = ${value}`);
     }
 
-
-      axios
-        .post(`http://localhost:5000/googleDrive/fileUpload`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((data) => {
-          if (data.data.success) {
-            swal("Successful", "File uploaded", "success");
-          }
-        })
-        .catch((err) => {
-          swal("Unsuccessful", "File uploading failed", "error");
-        });
-
+    axios
+      .post(`http://localhost:5000/googleDrive/fileUpload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((data) => {
+        if (data.data) {
+          swal("Successful", "File uploaded", "success");
+        }
+      })
+      .catch((err) => {
+        swal("Unsuccessful", "File uploading failed", "error");
+      });
   };
 
   useEffect(() => {

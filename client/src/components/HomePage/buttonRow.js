@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 300,
     width: "100%",
     marginTop: "75px",
-    marginBottom: "75px"
+    marginBottom: "75px",
   },
   image: {
     position: "relative",
