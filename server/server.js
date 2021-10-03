@@ -10,7 +10,7 @@ app.use(express.json());
 //Routes
 app.use("/", require("./routes/routes"));
 app.use("/googleDrive", require("./routes/google-drive-api"));
-
+app.use("/auth", require("./routes/auth"));
 const PORT = 5000;
 
 app.listen(PORT, () => {
