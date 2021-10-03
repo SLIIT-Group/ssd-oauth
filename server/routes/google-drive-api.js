@@ -75,7 +75,7 @@ router.post("/readDrive", async (req, res) => {
 });
 
 /*
-  @api {post} /googleDrive/fileUpload Upload images to resource server
+  @api {post} /googleDrive/fileUpload Upload images to drive
   @apiName fileUpload
   @apiGroup googleDrive
   @apiSuccess (Success 201)
@@ -118,7 +118,7 @@ router.post("/fileUpload", (req, res) => {
 });
 
 /*
-  @api {post} /deleteFile/:id  Upload images to resource server
+  @api {post} /deleteFile/:id  Delete images from drive
   @apiParam {String} image ID
   @apiName deleteFile
   @apiGroup googleDrive
@@ -135,6 +135,14 @@ router.post("/deleteFile/:id", (req, res) => {
   });
 });
 
+/*
+  @api {post} /download/:id  Download images from resource server
+  @apiParam {String} image ID
+  @apiName download
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) Done
+  @apiError {text} 400 Error 
+ */
 router.post("/download/:id", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
@@ -156,6 +164,14 @@ router.post("/download/:id", (req, res) => {
   );
 });
 
+/*
+  @api {post} /getUrl/:id  Get image link
+  @apiParam {String} image ID
+  @apiName getUrl
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) Done
+  @apiError {text} 400 Error 
+ */
 router.post("/getUrl/:id", async (req, res) => {
   try {
     if (req.body.token == null) return res.status(400).send("Token not found");
