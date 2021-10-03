@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <div>
-      <h3>Accessing OAuth Server...</h3>
+      <h3 style={{ padding: "60px" }}>Accessing OAuth Server...</h3>
     </div>
   );
 };
