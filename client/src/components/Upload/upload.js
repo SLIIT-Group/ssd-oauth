@@ -38,6 +38,11 @@ const Upload = () => {
   };
 
   useEffect(() => {
+
+    if (!localStorage.getItem("access_token")) {
+      swal("Please Login", "", "error");
+    }
+
     const token = {
       access_token: localStorage.getItem("access_token"),
       scope: localStorage.getItem("scope"),

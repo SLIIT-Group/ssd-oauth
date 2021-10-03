@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 
 const images = [
   {
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ButtonRow(props) {
+function Home(props) {
   const classes = useStyles();
 
   return (
@@ -140,4 +140,4 @@ function ButtonRow(props) {
   );
 }
 
-export default ButtonRow;
+export default Home;
