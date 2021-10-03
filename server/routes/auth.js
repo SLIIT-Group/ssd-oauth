@@ -17,6 +17,12 @@ const SCOPE = [
   "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive",
 ];
 
+/*
+  @api {get} /auth/getAuthURL Request Auth URL from server
+  @apiName getAuthURL
+  @apiGroup auth
+  @apiSuccess (Success 201) {text} oauth url  
+ */
 router.get("/getAuthURL", (req, res) => {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
@@ -25,6 +31,13 @@ router.get("/getAuthURL", (req, res) => {
   return res.send(authUrl);
 });
 
+/*
+  @api {post} /auth/getToken Get acess token from server
+  @apiName getToken
+  @apiGroup auth
+  @apiSuccess (Success 201) {text} oauth token
+  @apiError {text} Error retrieving access token
+ */
 router.post("/getToken", (req, res) => {
   if (req.body.code == null) return res.status(400).send("Invalid Request");
   oAuth2Client.getToken(req.body.code, (err, token) => {
@@ -35,6 +48,13 @@ router.post("/getToken", (req, res) => {
   });
 });
 
+/*
+  @api {post} /auth/getUserInfo Get user info from resource server
+  @apiName getUserInfo
+  @apiGroup auth
+  @apiSuccess (Success 201) {text} user data object
+  @apiError {text} 400 Error
+ */
 router.post("/getUserInfo", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
@@ -44,7 +64,5 @@ router.post("/getUserInfo", (req, res) => {
     res.send(response.data);
   });
 });
-
-
 
 module.exports = router;

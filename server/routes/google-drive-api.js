@@ -19,6 +19,13 @@ const SCOPE = [
   "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive",
 ];
 
+/*
+  @api {post} /googleDrive/readDrive Get images from resource server
+  @apiName readDrive
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) {JSON Object} {name,id,webViewLink,webContentLink}
+  @apiError {text} 400 Error No files found
+ */
 router.post("/readDrive", async (req, res) => {
   try {
     if (req.body.token == null) return res.status(400).send("Token not found");
@@ -67,6 +74,13 @@ router.post("/readDrive", async (req, res) => {
   }
 });
 
+/*
+  @api {post} /googleDrive/fileUpload Upload images to drive
+  @apiName fileUpload
+  @apiGroup googleDrive
+  @apiSuccess (Success 201)
+  @apiError {text} 400 Error 
+ */
 router.post("/fileUpload", (req, res) => {
   var form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
@@ -103,6 +117,14 @@ router.post("/fileUpload", (req, res) => {
   });
 });
 
+/*
+  @api {post} /deleteFile/:id  Delete images from drive
+  @apiParam {String} image ID
+  @apiName deleteFile
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) Done
+  @apiError {text} 400 Error 
+ */
 router.post("/deleteFile/:id", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
@@ -113,6 +135,14 @@ router.post("/deleteFile/:id", (req, res) => {
   });
 });
 
+/*
+  @api {post} /download/:id  Download images from resource server
+  @apiParam {String} image ID
+  @apiName download
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) Done
+  @apiError {text} 400 Error 
+ */
 router.post("/download/:id", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
@@ -134,6 +164,14 @@ router.post("/download/:id", (req, res) => {
   );
 });
 
+/*
+  @api {post} /getUrl/:id  Get image link
+  @apiParam {String} image ID
+  @apiName getUrl
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) Done
+  @apiError {text} 400 Error 
+ */
 router.post("/getUrl/:id", async (req, res) => {
   try {
     if (req.body.token == null) return res.status(400).send("Token not found");
