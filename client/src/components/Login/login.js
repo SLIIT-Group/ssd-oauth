@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h3>Accessing OAuth Server...</h3>
     </div>
   );
 };
