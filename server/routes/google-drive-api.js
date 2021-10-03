@@ -74,6 +74,13 @@ router.post("/readDrive", async (req, res) => {
   }
 });
 
+/*
+  @api {post} /googleDrive/fileUpload Upload images to resource server
+  @apiName fileUpload
+  @apiGroup googleDrive
+  @apiSuccess (Success 201)
+  @apiError {text} 400 Error 
+ */
 router.post("/fileUpload", (req, res) => {
   var form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
@@ -110,6 +117,14 @@ router.post("/fileUpload", (req, res) => {
   });
 });
 
+/*
+  @api {post} /deleteFile/:id  Upload images to resource server
+  @apiParam {String} image ID
+  @apiName deleteFile
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) Done
+  @apiError {text} 400 Error 
+ */
 router.post("/deleteFile/:id", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
