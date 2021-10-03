@@ -12,7 +12,7 @@ const Navbar = (props) => {
     };
 
     axios
-      .post(`http://localhost:5000/googleDrive/getToken`, body)
+      .post(`http://localhost:5000/auth/getToken`, body)
       .then((data) => {
         if (data) {
           localStorage.setItem("access_token", data.data.access_token);

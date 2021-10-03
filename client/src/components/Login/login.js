@@ -5,7 +5,7 @@ import swal from "sweetalert";
 const Login = () => {
   useEffect(() => {
     axios
-      .get(`/googleDrive/getAuthURL`)
+      .get(`/auth/getAuthURL`)
       .then((data) => {
         if (data) {
           load(data.data);
