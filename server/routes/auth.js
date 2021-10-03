@@ -17,6 +17,13 @@ const SCOPE = [
   "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive",
 ];
 
+/*
+  @api {get} /auth/getAuthURL Request Auth URL from server
+  @apiName getAuthURL
+  @apiGroup auth
+  @apiSuccess (Success 201) {text} oauth token
+  @apiError {text} Error retrieving access token
+ */
 router.get("/getAuthURL", (req, res) => {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
@@ -44,7 +51,5 @@ router.post("/getUserInfo", (req, res) => {
     res.send(response.data);
   });
 });
-
-
 
 module.exports = router;
