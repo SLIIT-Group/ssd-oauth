@@ -19,6 +19,13 @@ const SCOPE = [
   "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive",
 ];
 
+/*
+  @api {post} /googleDrive/readDrive Get images from resource server
+  @apiName readDrive
+  @apiGroup googleDrive
+  @apiSuccess (Success 201) {JSON Object} {name,id,webViewLink,webContentLink}
+  @apiError {text} 400 Error No files found
+ */
 router.post("/readDrive", async (req, res) => {
   try {
     if (req.body.token == null) return res.status(400).send("Token not found");
