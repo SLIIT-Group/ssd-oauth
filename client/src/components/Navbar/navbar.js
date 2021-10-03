@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./navbar.css";
+import swal from "sweetalert";
 
 const Navbar = (props) => {
+  const [login, setLogin] = useState(false);
+
   useEffect(() => {
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
@@ -20,6 +23,7 @@ const Navbar = (props) => {
           localStorage.setItem("token_type", data.data.token_type);
           localStorage.setItem("expiry_date", data.data.expiry_date);
           localStorage.setItem("id_token", data.data.id_token);
+          setLogin(true);
         }
       })
       .catch((err) => {
@@ -33,6 +37,8 @@ const Navbar = (props) => {
     localStorage.setItem("token_type", "");
     localStorage.setItem("expiry_date", "");
     localStorage.setItem("id_token", "");
+    swal("Successful", "Logged out", "success");
+    setLogin(false);
   };
 
   return (
@@ -49,16 +55,20 @@ const Navbar = (props) => {
               Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to={"/login"} className="nav-link">
-              Login
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={"/"} className="nav-link" onClick={logout}>
-              Logout
-            </Link>
-          </li>
+          {login ?
+              <li className="nav-item">
+                <Link to={"/"} className="nav-link" onClick={logout}>
+                  Logout
+                </Link>
+              </li>
+
+          :
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">
+                  Login
+                </Link>
+              </li>
+          }
         </ul>
       </div>
     </nav>
