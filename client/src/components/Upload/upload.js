@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import './upload.css';
 
 const Upload = () => {
   const [token, setToken] = useState(null);
@@ -48,7 +49,7 @@ const Upload = () => {
   }, []);
 
   return (
-    <div className="container border">
+    <div className="container border ssd-upload">
       <br />
       <h2>Upload</h2>
       <br />
