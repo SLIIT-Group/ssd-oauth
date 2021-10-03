@@ -21,8 +21,7 @@ const SCOPE = [
   @api {get} /auth/getAuthURL Request Auth URL from server
   @apiName getAuthURL
   @apiGroup auth
-  @apiSuccess (Success 201) {text} oauth token
-  @apiError {text} Error retrieving access token
+  @apiSuccess (Success 201) {text} oauth url  
  */
 router.get("/getAuthURL", (req, res) => {
   const authUrl = oAuth2Client.generateAuthUrl({
@@ -32,6 +31,13 @@ router.get("/getAuthURL", (req, res) => {
   return res.send(authUrl);
 });
 
+/*
+  @api {post} /auth/getToken Get acess token from server
+  @apiName getAuthURL
+  @apiGroup auth
+  @apiSuccess (Success 201) {text} oauth token
+  @apiError {text} Error retrieving access token
+ */
 router.post("/getToken", (req, res) => {
   if (req.body.code == null) return res.status(400).send("Invalid Request");
   oAuth2Client.getToken(req.body.code, (err, token) => {
