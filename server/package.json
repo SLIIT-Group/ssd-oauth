@@ -4,22 +4,19 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "cross-env NODE_ENV=production node server",
+        "start": "node server",
         "dev": "cross-env NODE_ENV=development nodemon server"
     },
     "author": "IT18100280 KIB Kumarage",
     "license": "ISC",
     "dependencies": {
-        "cookie-session": "^1.4.0",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "formidable": "^1.2.2",
         "googleapis": "^39.2.0",
         "mongoose": "^6.0.6",
-        "morgan": "^1.10.0",
-        "passport": "^0.4.1",
-        "passport-google-oauth20": "^2.0.0"
+        "morgan": "^1.10.0"
     },
     "devDependencies": {
         "cross-env": "^7.0.3",

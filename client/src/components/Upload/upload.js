@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import './upload.css';
 
 const Upload = () => {
   const [token, setToken] = useState(null);
@@ -14,31 +15,34 @@ const Upload = () => {
   const submitUpload = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("file", image,  image.name);
+    formData.append("file", image, image.name);
     formData.append("token", JSON.stringify(token));
     for (let [name, value] of formData) {
       console.log(`FORM DATA ${name} = ${value}`);
     }
 
-
-      axios
-        .post(`http://localhost:5000/googleDrive/fileUpload`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((data) => {
-          if (data.data) {
-            swal("Successful", "File uploaded", "success");
-          }
-        })
-        .catch((err) => {
-          swal("Unsuccessful", "File uploading failed", "error");
-        });
-
+    axios
+      .post(`http://localhost:5000/googleDrive/fileUpload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((data) => {
+        if (data.data) {
+          swal("Successful", "File uploaded", "success");
+        }
+      })
+      .catch((err) => {
+        swal("Unsuccessful", "File uploading failed", "error");
+      });
   };
 
   useEffect(() => {
+
+    if (!localStorage.getItem("access_token")) {
+      swal("Please Login", "", "error");
+    }
+
     const token = {
       access_token: localStorage.getItem("access_token"),
       scope: localStorage.getItem("scope"),
@@ -50,7 +54,7 @@ const Upload = () => {
   }, []);
 
   return (
-    <div className="container border">
+    <div className="container border ssd-upload">
       <br />
       <h2>Upload</h2>
       <br />

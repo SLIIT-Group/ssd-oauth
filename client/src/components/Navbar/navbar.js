@@ -12,7 +12,7 @@ const Navbar = (props) => {
     };
 
     axios
-      .post(`http://localhost:5000/googleDrive/getToken`, body)
+      .post(`http://localhost:5000/auth/getToken`, body)
       .then((data) => {
         if (data) {
           localStorage.setItem("access_token", data.data.access_token);
@@ -42,7 +42,7 @@ const Navbar = (props) => {
           {" "}
           SSD Assignment 2
         </Link>
-        <div className="ssd-empty-space"/>
+        <div className="ssd-empty-space" />
         <ul className="navbar-nav mr-auto ssd-navbar-sub-header">
           <li className="nav-item">
             <Link to={"/"} className="nav-link">
