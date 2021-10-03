@@ -33,7 +33,7 @@ router.get("/getAuthURL", (req, res) => {
 
 /*
   @api {post} /auth/getToken Get acess token from server
-  @apiName getAuthURL
+  @apiName getToken
   @apiGroup auth
   @apiSuccess (Success 201) {text} oauth token
   @apiError {text} Error retrieving access token
@@ -48,6 +48,13 @@ router.post("/getToken", (req, res) => {
   });
 });
 
+/*
+  @api {post} /auth/getUserInfo Get user info from resource server
+  @apiName getUserInfo
+  @apiGroup auth
+  @apiSuccess (Success 201) {text} user data object
+  @apiError {text} 400 Error
+ */
 router.post("/getUserInfo", (req, res) => {
   if (req.body.token == null) return res.status(400).send("Token not found");
   oAuth2Client.setCredentials(req.body.token);
